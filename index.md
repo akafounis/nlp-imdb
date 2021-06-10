@@ -1,37 +1,73 @@
-## Welcome to GitHub Pages
+<img src="nlp_cover.png" width="400">
 
-You can use the [editor on GitHub](https://github.com/akafounis/nlp-imdb/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+The goal of this project is to build a deep learning model that is able to understand if a comment that was made is positive or negative.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+The model consists of an Embedding Layer, then the RNN and finally with a fully connected layer that is responsible for the final classification, 1/0 positive or negative review. For the training and evaluation of the model was used the IMDB Movie Reviews dataset.
 
-### Markdown
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+**Tokenizing Data** 
 
-```markdown
-Syntax highlighted code block
+First we have to split the text into words in order to be able to construct the vocabulary.
 
-# Header 1
-## Header 2
-### Header 3
+(['i', 'don', 't', 'know', 'why', 'i', 'like', 'this', 'movie', 'so', 'well', 'but', 'i', 'never', 'get', 'tired', 'of', 'watching', 'it'], 1) 
 
-- Bulleted
-- List
+(['this', 'is', 'the', 'definitive', 'movie', 'version', 'of', 'hamlet', 'branagh', 'cuts', 'nothing', 'but', 'there', 'are', 'no', 'wasted', 'moments'], 1) 
 
-1. Numbered
-2. List
+(['adrian', 'pasdar', 'is', 'excellent', 'is', 'this', 'film', 'he', 'makes', 'a', 'fascinating', 'woman'], 1) 
 
-**Bold** and _Italic_ and `Code` text
+(['ming', 'the', 'merciless', 'does', 'a', 'little', 'bardwork', 'and', 'a', 'movie', 'most', 'foul'], 0) 
 
-[Link](url) and ![Image](src)
-```
+(['long', 'boring', 'blasphemous', 'never', 'have', 'i', 'been', 'so', 'glad', 'to', 'see', 'ending', 'credits', 'roll'], 0) 
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+(['this', 'movie', 'is', 'terrible', 'but', 'it', 'has', 'some', 'good', 'effects'], 0)
 
-### Jekyll Themes
+The 0/1 in the end indicates if a comment is positive or negative.
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/akafounis/nlp-imdb/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+**Creating Vocabulary**
 
-### Support or Contact
+First, we find the most frequent words that were used for the reviews:
 
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+{'<eos>': 0,
+ '<unk>': 1,
+ 'i': 2,
+ 'this': 3,
+ 'movie': 4,
+ 'is': 5,
+ 'but': 6,
+ 'a': 7,
+ 'so': 8,
+ 'never': 9,
+ 'of': 10,
+ 'it': 11,
+ 'the': 12,
+ 'don': 13,
+ 't': 14,
+ 'know': 15,
+ 'why': 16,
+ 'like': 17,
+ 'well': 18,
+ 'get': 19,
+ 'tired': 20,
+ 'watching': 21}
+  
+  with <eos> end of sequence symbol used for padding and <unk> are the unknown words in our vocabulary.
+
+
+Then, we have to construct a vocabulary which maps each word to an integer. An exampe review with the mapped integers looks like this:
+  
+{'data': tensor([ 3,  5, 12,  1,  4,  1, 10,  1,  1,  1,  1,  6,  1,  1,  1,  1,  1]), 'label': tensor(1.)}
+  
+**Constructing Embeddings** 
+  
+Now, we want to be able to understand the semantic relations between words and to understand if an order of the words has no meaning at all. For this purpose we are going to construct an Embedding Layer.
+  
+![alt text](embedding-rel.svg)
+  
+Then, we defined the Text classifier whiches components we already mentioned above, and trained the model with our dataset.
+
+**Results:**
+  
+**82% Accuracy**
+
+
+**PyTorch** was used for the development of the model.
