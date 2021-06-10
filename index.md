@@ -1,4 +1,4 @@
-<img src="nlp_cover.png" width="400">
+<img src="sentimental-analysis.png" width="400">
 
 The goal of this project is to build a deep learning model that is able to understand if a comment that was made is positive or negative.
 
