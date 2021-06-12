@@ -1,4 +1,4 @@
-<img src="sentsent.png" width="600">
+<img src="sentsent.png" width="1000">
 
 The goal of this project is to build a deep learning model that is able to understand if a comment that was made is positive or negative.
 
@@ -63,11 +63,15 @@ Now, we want to be able to understand the semantic relations between words and t
   
 ![alt text](embedding-rel.svg)
   
-Then, we defined the Text classifier whiches components we already mentioned above, and trained the model with our dataset.
+Then, we defined the Text classifier whiches components we already mentioned above, and trained the model with our dataset. After tunning the hyperparameters we got the following result.
 
 **Results:**
   
-**82% Accuracy**
+**81,23% Accuracy**
+ 
+Furthermore, a small live demo was created just for fun:
+ 
+![alt text](demo.png)
 
 
 **PyTorch** was used for the development of the model.
